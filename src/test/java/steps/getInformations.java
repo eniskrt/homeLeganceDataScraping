@@ -106,10 +106,10 @@ public class getInformations extends TestBase {
     @Test
     public void youth() {
 
-    }
+    }*/
 
     @Test
-    public void seating() {
+    public void seating() throws InterruptedException {
         Actions actions = new Actions(driver);
         WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seating/'])[1]"));
         actions.moveToElement(seatingLink).perform();
@@ -187,8 +187,8 @@ public class getInformations extends TestBase {
             //seating sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-
+    }
+    /*
     @Test
     public void occasional() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -222,9 +222,39 @@ public class getInformations extends TestBase {
             String productStockStatus;
             String productRemoteStockStatus;
 
-            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+            String productHeading = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText();
+            boolean isContainsCollection =productHeading.contains("Collection");
+            if (productHeading.equals("3503BK Occasional-Muriel Collection")){
+                // bu üründe resim gelmiyor
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
 
-            if (isContainsCollection){
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j % 5 == 0) {
+                        actions.scrollByAmount(0,425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice =driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+
+            } else if (isContainsCollection){
                 List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
                         "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
                 for (int j = 0; j < subProductList.size(); j++) {
@@ -235,7 +265,7 @@ public class getInformations extends TestBase {
 
                     //Collections ürünlerin alt listeleri için iterator
                     if (j == 0){
-                        actions.scrollByAmount(0,750).perform();
+                        actions.scrollByAmount(0,735).perform();
                     } else if (j % 5 == 0) {
                         actions.scrollByAmount(0,425).perform();
                     }
@@ -268,7 +298,7 @@ public class getInformations extends TestBase {
             //occasional sayfsına geri dönüş
             driver.navigate().back();
         }
-    }
+    }*/
     /*
     @Test
     public void office() throws InterruptedException {
