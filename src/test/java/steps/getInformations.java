@@ -110,13 +110,165 @@ public class getInformations extends TestBase {
 
     @Test
     public void seating() {
+        Actions actions = new Actions(driver);
+        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seating/'])[1]"));
+        actions.moveToElement(seatingLink).perform();
+        Thread.sleep(1000);
 
-    }
+        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
+        browseAllSeatingLink.click();
+
+        WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
+        allBtn.click();
+
+        actions.scrollByAmount(0,400).perform();
+
+        List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (i == 0){
+                //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
+            } else if (i % 3 == 0) {
+                actions.scrollByAmount(0,555).perform();
+            }
+
+            WebElement product = productList.get(i);
+            product.click();
+            //Thread.sleep(1000);
+
+            String productCode;
+            String productPrice;
+            String productStockStatus;
+            String productRemoteStockStatus;
+
+            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+
+            if (isContainsCollection){
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
+
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j == 0){
+                        actions.scrollByAmount(0,750).perform();
+                    } else if (j % 5 == 0) {
+                        actions.scrollByAmount(0,425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice =driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+            } else {
+                productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                productPrice =driver.findElement(By.id("price_block")).getText();
+                productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                System.out.println(productCode);
+                System.out.println(productPrice);
+                System.out.println(productStockStatus);
+                System.out.println(productRemoteStockStatus);
+                System.out.println("----------");
+            }
+            //seating sayfsına geri dönüş
+            driver.navigate().back();
+        }
+    }*/
 
     @Test
-    public void occasional() {
+    public void occasional() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        WebElement occasionalLink = driver.findElement(By.xpath("(//a[@href='/occasional/'])[1]"));
+        actions.moveToElement(occasionalLink).perform();
+        Thread.sleep(1000);
 
-    }*/
+        WebElement browseAllOccasionalLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[6]//li[@class='menu-item-li']"));
+        browseAllOccasionalLink.click();
+
+        WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
+        allBtn.click();
+
+        actions.scrollByAmount(0,400).perform();
+
+        List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (i == 0){
+                //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
+            } else if (i % 3 == 0) {
+                actions.scrollByAmount(0,560).perform();
+            }
+
+            WebElement product = productList.get(i);
+            product.click();
+            //Thread.sleep(1000);
+
+            String productCode;
+            String productPrice;
+            String productStockStatus;
+            String productRemoteStockStatus;
+
+            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+
+            if (isContainsCollection){
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
+
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j == 0){
+                        actions.scrollByAmount(0,750).perform();
+                    } else if (j % 5 == 0) {
+                        actions.scrollByAmount(0,425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice =driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+            } else {
+                productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                productPrice =driver.findElement(By.id("price_block")).getText();
+                productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                System.out.println(productCode);
+                System.out.println(productPrice);
+                System.out.println(productStockStatus);
+                System.out.println(productRemoteStockStatus);
+                System.out.println("----------");
+            }
+            //occasional sayfsına geri dönüş
+            driver.navigate().back();
+        }
+    }
     /*
     @Test
     public void office() throws InterruptedException {
