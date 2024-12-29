@@ -1,5 +1,15 @@
 package steps;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,12 +18,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utillities.TestBase;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class getInformations extends TestBase {
 
     private static final Logger log = LoggerFactory.getLogger(getInformations.class);
-    /*
+    private static List<String[]> allProductsInformation = new ArrayList<>(); // Ortak veri listesi
+
     @Test
     public void newArrivals() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -65,6 +81,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -80,6 +98,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -90,9 +110,8 @@ public class getInformations extends TestBase {
             driver.navigate().back();
             Thread.sleep(1000);
         }
-    }*/
+    }
 
-    /*
     @Test
     public void bedroom() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -151,6 +170,8 @@ public class getInformations extends TestBase {
                     productPrice = driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -166,6 +187,8 @@ public class getInformations extends TestBase {
                 productPrice = driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -178,7 +201,7 @@ public class getInformations extends TestBase {
             driver.navigate().back();
         }
     }
-    /*
+
     @Test
     public void dining() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -237,6 +260,8 @@ public class getInformations extends TestBase {
                     productPrice = driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -252,6 +277,8 @@ public class getInformations extends TestBase {
                 productPrice = driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -263,8 +290,8 @@ public class getInformations extends TestBase {
             //seating sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void youth() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -323,6 +350,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -338,6 +367,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -349,8 +380,8 @@ public class getInformations extends TestBase {
             //seating sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void seating() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -409,6 +440,8 @@ public class getInformations extends TestBase {
                     productPrice = driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -424,6 +457,8 @@ public class getInformations extends TestBase {
                 productPrice = driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -436,7 +471,7 @@ public class getInformations extends TestBase {
             driver.navigate().back();
         }
     }
-    /*
+
     @Test
     public void occasional() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -492,6 +527,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -523,6 +560,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -537,6 +576,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -546,8 +587,8 @@ public class getInformations extends TestBase {
             //occasional sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void office() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -604,6 +645,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -618,6 +661,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -628,7 +673,7 @@ public class getInformations extends TestBase {
             driver.navigate().back();
         }
     }
-    *//*
+
     @Test
     public void accent() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -685,6 +730,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -699,6 +746,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -708,8 +757,8 @@ public class getInformations extends TestBase {
             //accent sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void media() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -766,6 +815,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -780,6 +831,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -789,8 +842,8 @@ public class getInformations extends TestBase {
             //media sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void lighting() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -847,6 +900,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -861,6 +916,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -870,8 +927,8 @@ public class getInformations extends TestBase {
             //lighting sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void mattress() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -928,6 +985,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -942,6 +1001,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -951,8 +1012,8 @@ public class getInformations extends TestBase {
             //mattress sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
-    /*
+    }
+
     @Test
     public void onSale() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -1009,6 +1070,8 @@ public class getInformations extends TestBase {
                     productPrice =driver.findElement(By.id("price_block")).getText();
                     productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                     productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                    allProductsInformation.add(productInfo);
                     System.out.println(productCode);
                     System.out.println(productPrice);
                     System.out.println(productStockStatus);
@@ -1023,6 +1086,8 @@ public class getInformations extends TestBase {
                 productPrice =driver.findElement(By.id("price_block")).getText();
                 productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
                 productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                allProductsInformation.add(productInfo);
                 System.out.println(productCode);
                 System.out.println(productPrice);
                 System.out.println(productStockStatus);
@@ -1032,5 +1097,51 @@ public class getInformations extends TestBase {
             //mattress sayfsına geri dönüş
             driver.navigate().back();
         }
-    }*/
+    }
+
+    @AfterClass
+    public static void writeDataToExcel() throws IOException {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Product List");
+
+        // Başlık stili
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex()); // Arka plan rengi
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND); // Dolgu tipi
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true); // Kalın yazı
+        headerStyle.setFont(headerFont);
+
+        // Başlıklar
+        String[] headers = {"SKU NUMBER", "PRICE", "SANTA FE WAREHOUSE", "REMOTE WAREHOUSE"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell headerCell = headerRow.createCell(i);
+            headerCell.setCellValue(headers[i]);
+            headerCell.setCellStyle(headerStyle); // Stili uygula
+        }
+
+        // Verileri ekle
+        int rowCount = 1;
+        for (String[] rowData : allProductsInformation) {
+            Row row = sheet.createRow(rowCount++);
+            for (int i = 0; i < rowData.length; i++) {
+                row.createCell(i).setCellValue(rowData[i]);
+            }
+        }
+
+        // Sütun genişliklerini otomatik ayarla
+        for (int i = 0; i < headers.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Excel dosyasını kaydet
+        String currentDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
+        String fileName = "ProductPrices_" + currentDate + ".xlsx";
+        try (FileOutputStream outputStream = new FileOutputStream(fileName)) {
+            workbook.write(outputStream);
+        }
+        workbook.close();
+        System.out.println("Excel dosyası başarıyla kaydedildi!");
+    }
 }
