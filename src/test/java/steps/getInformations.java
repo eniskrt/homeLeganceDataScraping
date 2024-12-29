@@ -111,9 +111,11 @@ public class getInformations extends TestBase {
     @Test
     public void seating() throws InterruptedException {
         Actions actions = new Actions(driver);
-        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seating/'])[1]"));
+        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seat/'])[1]"));
         actions.moveToElement(seatingLink).perform();
         Thread.sleep(1000);
+
+        actions.scrollByAmount(0,250).perform();
 
         WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
         browseAllSeatingLink.click();
@@ -129,7 +131,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,575).perform();
             }
 
             WebElement product = productList.get(i);
@@ -142,7 +144,7 @@ public class getInformations extends TestBase {
             String productRemoteStockStatus;
 
             boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
-
+            int count = 0;
             if (isContainsCollection){
                 List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
                         "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
@@ -169,6 +171,7 @@ public class getInformations extends TestBase {
                     System.out.println(productStockStatus);
                     System.out.println(productRemoteStockStatus);
                     System.out.println("----------");
+                    count++;
 
                     // Collections ürüne geri dönüş
                     driver.navigate().back();
@@ -183,6 +186,8 @@ public class getInformations extends TestBase {
                 System.out.println(productStockStatus);
                 System.out.println(productRemoteStockStatus);
                 System.out.println("----------");
+                count++;
+                System.out.println(count + "--------");
             }
             //seating sayfsına geri dönüş
             driver.navigate().back();
