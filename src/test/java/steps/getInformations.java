@@ -94,31 +94,188 @@ public class getInformations extends TestBase {
 
     /*
     @Test
-    public void bedroom() {
-
-    }
-
-    @Test
-    public void dining() {
-
-    }
-
-    @Test
-    public void youth() {
-
-    }*/
-
-    @Test
-    public void seating() throws InterruptedException {
+    public void bedroom() throws InterruptedException {
         Actions actions = new Actions(driver);
-        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seat/'])[1]"));
-        actions.moveToElement(seatingLink).perform();
+        WebElement bedroomLink = driver.findElement(By.xpath("(//a[@href='/bedroom/'])[1]"));
+        actions.moveToElement(bedroomLink).perform();
+        Thread.sleep(1000);
+
+        actions.scrollByAmount(0, 250).perform();
+
+        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[2]//li[@class='menu-item-li']"));
+        browseAllSeatingLink.click();
+
+        WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
+        allBtn.click();
+
+        actions.scrollByAmount(0, 400).perform();
+
+        List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (i == 0) {
+                //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
+            } else if (i % 3 == 0) {
+                actions.scrollByAmount(0, 570).perform();
+            }
+
+            WebElement product = productList.get(i);
+            product.click();
+            //Thread.sleep(1000);
+
+            String productCode;
+            String productPrice;
+            String productStockStatus;
+            String productRemoteStockStatus;
+
+            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+            int count = 0;
+            if (isContainsCollection) {
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
+
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j == 0) {
+                        actions.scrollByAmount(0, 750).perform();
+                    } else if (j % 5 == 0) {
+                        actions.scrollByAmount(0, 425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice = driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+                    count++;
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+            } else {
+                productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                productPrice = driver.findElement(By.id("price_block")).getText();
+                productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                System.out.println(productCode);
+                System.out.println(productPrice);
+                System.out.println(productStockStatus);
+                System.out.println(productRemoteStockStatus);
+                System.out.println("----------");
+                count++;
+                System.out.println(count + "--------");
+            }
+            //bedroom sayfsına geri dönüş
+            driver.navigate().back();
+        }
+    }
+    /*
+    @Test
+    public void dining() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        WebElement diningLink = driver.findElement(By.xpath("(//a[@href='/dining/'])[1]"));
+        actions.moveToElement(diningLink).perform();
+        Thread.sleep(1000);
+
+        actions.scrollByAmount(0, 250).perform();
+
+        WebElement browseAllDiningLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[3]//li[@class='menu-item-li']"));
+        browseAllDiningLink.click();
+
+        WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
+        allBtn.click();
+
+        actions.scrollByAmount(0, 400).perform();
+
+        List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (i == 0) {
+                //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
+            } else if (i % 3 == 0) {
+                actions.scrollByAmount(0, 570).perform();
+            }
+
+            WebElement product = productList.get(i);
+            product.click();
+            //Thread.sleep(1000);
+
+            String productCode;
+            String productPrice;
+            String productStockStatus;
+            String productRemoteStockStatus;
+
+            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+            int count = 0;
+            if (isContainsCollection) {
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
+
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j == 0) {
+                        actions.scrollByAmount(0, 750).perform();
+                    } else if (j % 5 == 0) {
+                        actions.scrollByAmount(0, 425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice = driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+                    count++;
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+            } else {
+                productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                productPrice = driver.findElement(By.id("price_block")).getText();
+                productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                System.out.println(productCode);
+                System.out.println(productPrice);
+                System.out.println(productStockStatus);
+                System.out.println(productRemoteStockStatus);
+                System.out.println("----------");
+                count++;
+                System.out.println(count + "--------");
+            }
+            //seating sayfsına geri dönüş
+            driver.navigate().back();
+        }
+    }*/
+    /*
+    @Test
+    public void youth() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        WebElement youthLink = driver.findElement(By.xpath("(//a[@href='/youth/'])[1]"));
+        actions.moveToElement(youthLink).perform();
         Thread.sleep(1000);
 
         actions.scrollByAmount(0,250).perform();
 
-        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
-        browseAllSeatingLink.click();
+        WebElement browseAllYouthLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[4]//li[@class='menu-item-li']"));
+        browseAllYouthLink.click();
 
         WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
         allBtn.click();
@@ -131,7 +288,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,575).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -192,6 +349,92 @@ public class getInformations extends TestBase {
             //seating sayfsına geri dönüş
             driver.navigate().back();
         }
+    }*/
+    /*
+    @Test
+    public void seating() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seat/'])[1]"));
+        actions.moveToElement(seatingLink).perform();
+        Thread.sleep(1000);
+
+        actions.scrollByAmount(0, 250).perform();
+
+        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
+        browseAllSeatingLink.click();
+
+        WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
+        allBtn.click();
+
+        actions.scrollByAmount(0, 400).perform();
+
+        List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (i == 0) {
+                //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
+            } else if (i % 3 == 0) {
+                actions.scrollByAmount(0, 570).perform();
+            }
+
+            WebElement product = productList.get(i);
+            product.click();
+            //Thread.sleep(1000);
+
+            String productCode;
+            String productPrice;
+            String productStockStatus;
+            String productRemoteStockStatus;
+
+            boolean isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+            int count = 0;
+            if (isContainsCollection) {
+                List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                        "//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                for (int j = 0; j < subProductList.size(); j++) {
+                    // Listeyi yeniden alın
+                    List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']" +
+                            "//a"));
+                    WebElement subProduct = subProductListInLoop.get(j);
+
+                    //Collections ürünlerin alt listeleri için iterator
+                    if (j == 0) {
+                        actions.scrollByAmount(0, 750).perform();
+                    } else if (j % 5 == 0) {
+                        actions.scrollByAmount(0, 425).perform();
+                    }
+                    subProduct.click();
+                    //Thread.sleep(1000);
+                    productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                    productPrice = driver.findElement(By.id("price_block")).getText();
+                    productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                    productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                    System.out.println(productCode);
+                    System.out.println(productPrice);
+                    System.out.println(productStockStatus);
+                    System.out.println(productRemoteStockStatus);
+                    System.out.println("----------");
+                    count++;
+
+                    // Collections ürüne geri dönüş
+                    driver.navigate().back();
+                }
+            } else {
+                productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                productPrice = driver.findElement(By.id("price_block")).getText();
+                productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                System.out.println(productCode);
+                System.out.println(productPrice);
+                System.out.println(productStockStatus);
+                System.out.println(productRemoteStockStatus);
+                System.out.println("----------");
+                count++;
+                System.out.println(count + "--------");
+            }
+            //seating sayfsına geri dönüş
+            driver.navigate().back();
+        }
     }
     /*
     @Test
@@ -215,7 +458,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,560).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -326,7 +569,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -407,7 +650,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -488,7 +731,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -569,7 +812,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -650,7 +893,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
@@ -731,7 +974,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,555).perform();
+                actions.scrollByAmount(0,570).perform();
             }
 
             WebElement product = productList.get(i);
