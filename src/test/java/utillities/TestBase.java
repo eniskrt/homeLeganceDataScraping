@@ -16,8 +16,8 @@ public class TestBase {
 
     protected static WebDriver driver;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -35,8 +35,8 @@ public class TestBase {
         signInBtn.click();
     }
 
-    @AfterClass
-    public static void teardown() {
+    @After
+    public void teardown() {
         driver.quit();
     }
 }
