@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -222,7 +223,7 @@ public class getInformations extends TestBase {
 
         for (int k = 1; k <= pageSize; k++) {
             // Mevcut sayfadaki ürünleri bul
-            List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+            List<WebElement> productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
 
             if (k >= 2) {
                 actions.scrollByAmount(0, 450).perform();
@@ -235,9 +236,9 @@ public class getInformations extends TestBase {
                 } else if (i % 3 == 0) {
                     actions.scrollByAmount(0, 570).perform();
                 } else if (i == 34) {
-                    actions.scrollByAmount(0, 300).perform();
+                    actions.scrollByAmount(0, 200).perform();
                 }
-                productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
+                productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
                 WebElement product = productList.get(i);
                 product.click();
 
@@ -250,18 +251,26 @@ public class getInformations extends TestBase {
                 if (isContainsCollection) {
                     List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
 
-                    for (int j = 0; j < subProductList.size(); j++) {
+                    for (int j = 1; j <= subProductList.size(); j++) {
                         // Listeyi yeniden al
                         List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
-                        WebElement subProduct = subProductListInLoop.get(j);
 
-                        if (j == 0) {
+                        if (j == 1) {
                             actions.scrollByAmount(0, 750).perform();
-                        } else if (j % 5 == 0) {
-                            actions.scrollByAmount(0, 425).perform();
                         }
 
-                        subProduct.click();
+                        WebElement subProduct = subProductListInLoop.get(j - 1);
+                        try {
+                            subProduct.click();
+                        } catch (Exception e) {
+                            actions.click(subProduct).perform();
+                        }
+
+                        if (j % 5 == 0) {
+                            System.out.println( j + "if else içinde");
+                            actions.scrollByAmount(0, 425).perform();
+                            System.out.println("perform gerçekleşti");
+                        }
 
                         try {
                             productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
@@ -275,6 +284,8 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
+                        } finally {
+                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -285,14 +296,27 @@ public class getInformations extends TestBase {
                     String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
                     allProductsInformation.add(productInfo);
                 }
-
                 driver.navigate().back();
             }
 
             // Son sayfada değilsek, bir sonraki sayfaya geç
-            if (k < pageSize) {
+            if (k < pageSize-3) {
                 WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[16]//a"));
-                nextPageBtn.click();
+                try {
+                    nextPageBtn.click();
+                } catch (Exception e) {
+                    Thread.sleep(2000);
+                    nextPageBtn.click();
+                }
+                Thread.sleep(2000); // Sayfanın yüklenmesi için bekleme süresi
+            } else {
+                WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[12]//a"));
+                try {
+                    nextPageBtn.click();
+                } catch (Exception e) {
+                    Thread.sleep(2000);
+                    nextPageBtn.click();
+                }
                 Thread.sleep(2000); // Sayfanın yüklenmesi için bekleme süresi
             }
         }
