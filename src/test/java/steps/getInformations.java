@@ -300,6 +300,9 @@ public class getInformations extends TestBase {
             }
 
             // Son sayfada değilsek, bir sonraki sayfaya geç
+            if (k == pageSize){
+                break;
+            }
             if (k < pageSize-3) {
                 WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[16]//a"));
                 try {
