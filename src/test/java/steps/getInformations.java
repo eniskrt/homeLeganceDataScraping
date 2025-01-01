@@ -16,8 +16,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utillities.TestBase;
 
 import java.io.FileOutputStream;
@@ -95,8 +93,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -117,7 +113,7 @@ public class getInformations extends TestBase {
             Thread.sleep(1000);
         }
     }
-/*
+
     @Test
     public void bedroom() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -199,8 +195,6 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
-                        } finally {
-                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -322,8 +316,6 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
-                        } finally {
-                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -447,8 +439,6 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
-                        } finally {
-                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -572,8 +562,6 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
-                        } finally {
-                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -695,8 +683,6 @@ public class getInformations extends TestBase {
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
-                        } finally {
-                            System.out.println(j + "finally içi");
                         }
                     }
                 } else {
@@ -738,7 +724,7 @@ public class getInformations extends TestBase {
             }
         }
     }
-*/
+
     @Test
     public void office() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -752,7 +738,7 @@ public class getInformations extends TestBase {
         WebElement allBtn = driver.findElement(By.xpath("//span[text()='ALL']"));
         allBtn.click();
 
-        actions.scrollByAmount(0,450).perform();
+        actions.scrollByAmount(0,375).perform();
 
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
@@ -760,7 +746,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,570).perform();
+                actions.scrollByAmount(0,550).perform();
             }
 
             WebElement product = productList.get(i);
@@ -808,8 +794,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -899,8 +883,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -990,8 +972,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -1081,8 +1061,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -1124,7 +1102,7 @@ public class getInformations extends TestBase {
             if (i == 0){
                 //buradaki scroll'ü yukarıda kaydık burada boş geçmemiz gerekiyor
             } else if (i % 3 == 0) {
-                actions.scrollByAmount(0,570).perform();
+                actions.scrollByAmount(0,560).perform();
             }
 
             WebElement product = productList.get(i);
@@ -1172,8 +1150,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
@@ -1263,8 +1239,6 @@ public class getInformations extends TestBase {
                         actions.sendKeys(Keys.TAB)
                                 .sendKeys(Keys.ENTER)
                                 .perform();
-                    } finally {
-                        System.out.println(j + "finally içi");
                     }
                 }
             } else {
