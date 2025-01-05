@@ -21,7 +21,7 @@ public class TestBase {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(11));
 
         driver.get(ConfigReader.getProperty("loginUrl"));
 
