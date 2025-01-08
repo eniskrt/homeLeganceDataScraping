@@ -28,7 +28,6 @@ import java.util.*;
 public class GetInformations extends TestBase {
 
     private static Set<String[]> allProductsInformation = new HashSet<>(); // Ortak veri listesi
-/*
     @Test
     public void newArrivals() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -166,23 +165,27 @@ public class GetInformations extends TestBase {
             }
 
             for (int i = 1; i <= productList.size(); i++) {
-                if (i == 1) {
-                    // İlk ürün için kaydırma işlemi atlanır
-                } else if (i % 3 == 0) {
-                    actions.scrollByAmount(0, 570).perform();
-                } else if (i == 34) {
-                    actions.scrollByAmount(0, 200).perform();
-                }
+
                 //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
                 WebElement product;
                 try {
-                    product = productList.get(i -1);
+                    product = productList.get(i - 1);
                     product.click();
+                    if (i %3 == 0){
+                        actions.scrollByAmount(0, 530).perform();
+                    } else if (i == 34) {
+                        actions.scrollByAmount(0, 200).perform();
+                    }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage() + "i:" + i);
+                    System.out.println(e.getLocalizedMessage() + " i: " + i);
                     Thread.sleep(1000);
                     product = productList.get(i - 1);
                     actions.click(product).perform();
+                    if (i %3 == 0){
+                        actions.scrollByAmount(0, 530).perform();
+                    } else if (i == 34) {
+                        actions.scrollByAmount(0, 200).perform();
+                    }
                 }
 
                 String productCode;
@@ -194,20 +197,20 @@ public class GetInformations extends TestBase {
                 try {
                     isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
                 } catch (Exception e) {
-                    System.out.println("Ürün başlığı okunamadı" + e.getMessage() + "page:" + k);
+                    System.out.println("Ürün başlığı okunamadı " + e.getMessage() + " page: " + k);
                 }
                 if (isContainsCollection) {
-                    List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
+                    List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
 
                     for (int j = 1; j <= subProductList.size(); j++) {
                         // Listeyi yeniden al
-                        List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
+                        //List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
 
                         if (j == 1) {
-                            actions.scrollByAmount(0, 600).perform();
+                            actions.scrollByAmount(0, 400).perform(); //todo 600
                         }
 
-                        WebElement subProduct = subProductListInLoop.get(j - 1);
+                        WebElement subProduct = subProductList.get(j - 1);
                         try {
                             subProduct.click();
                         } catch (Exception e) {
@@ -216,7 +219,7 @@ public class GetInformations extends TestBase {
                         }
 
                         if (j % 5 == 0) {
-                            actions.scrollByAmount(0, 425).perform();
+                            actions.scrollByAmount(0, 425).perform(); //todo 440 olmalı sanki
                         }
 
                         try {
@@ -228,7 +231,7 @@ public class GetInformations extends TestBase {
                             allProductsInformation.add(productInfo);
                             driver.navigate().back();
                         } catch (Exception ex) {
-                            System.out.println(ex.getMessage() + "page:" + k + "item:" + i + "element:" + j );
+                            System.out.println(ex.getMessage() + " page: " + k + " item: " + i + " element: " + j );
                             actions.sendKeys(Keys.TAB)
                                     .sendKeys(Keys.ENTER)
                                     .perform();
@@ -243,7 +246,7 @@ public class GetInformations extends TestBase {
                         String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
                         allProductsInformation.add(productInfo);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage() + "page:" + k + "item:" + i);
+                        System.out.println(e.getMessage() + " page: " + k + " item: " + i);
                     }
                 }
                 driver.navigate().back();
@@ -300,23 +303,27 @@ public class GetInformations extends TestBase {
             }
 
             for (int i = 1; i <= productList.size(); i++) {
-                if (i == 1) {
-                    // İlk ürün için kaydırma işlemi atlanır
-                } else if (i % 3 == 0) {
-                    actions.scrollByAmount(0, 570).perform();
-                } else if (i == 34) {
-                    actions.scrollByAmount(0, 200).perform();
-                }
+
                 //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
                 WebElement product;
                 try {
                     product = productList.get(i - 1);
                     product.click();
+                    if (i %3 == 0){
+                        actions.scrollByAmount(0, 530).perform();
+                    } else if (i == 34) {
+                        actions.scrollByAmount(0, 200).perform();
+                    }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage() + "i:" + i);
+                    System.out.println(e.getLocalizedMessage() + " i: " + i);
                     Thread.sleep(1000);
                     product = productList.get(i - 1);
                     actions.click(product).perform();
+                    if (i %3 == 0){
+                        actions.scrollByAmount(0, 530).perform();
+                    } else if (i == 34) {
+                        actions.scrollByAmount(0, 200).perform();
+                    }
                 }
 
                 String productCode;
@@ -338,7 +345,7 @@ public class GetInformations extends TestBase {
                         List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
 
                         if (j == 1) {
-                            actions.scrollByAmount(0, 600).perform();
+                            actions.scrollByAmount(0, 400).perform();
                         }
 
                         WebElement subProduct = subProductListInLoop.get(j - 1);
@@ -350,7 +357,7 @@ public class GetInformations extends TestBase {
                         }
 
                         if (j % 5 == 0) {
-                            actions.scrollByAmount(0, 425).perform();
+                            actions.scrollByAmount(0, 400).perform();
                         }
 
                         try {
@@ -418,140 +425,6 @@ public class GetInformations extends TestBase {
 
         WebElement browseAllYouthLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[4]//li[@class='menu-item-li']"));
         browseAllYouthLink.click();
-
-        actions.scrollByAmount(0, 250).perform();
-
-        // Pagination bilgisi
-        String lastPageCountAsString = driver.findElement(By.xpath("(//li[@class='page-item'])[7]")).getText();
-        int pageSize = Integer.parseInt(lastPageCountAsString);
-
-        for (int k = 1; k <= pageSize; k++) {
-            // Mevcut sayfadaki ürünleri bul
-            List<WebElement> productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
-
-            if (k >= 2) {
-                actions.scrollByAmount(0, 250).perform();
-            }
-
-            for (int i = 1; i <= productList.size(); i++) {
-                if (i == 1) {
-                    // İlk ürün için kaydırma işlemi atlanır
-                } else if (i % 3 == 0) {
-                    actions.scrollByAmount(0, 570).perform();
-                } else if (i == 34) {
-                    actions.scrollByAmount(0, 200).perform();
-                }
-                //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
-                WebElement product;
-                try {
-                    product = productList.get(i - 1);
-                    product.click();
-                } catch (Exception e) {
-                    System.out.println(e.getMessage() + "i:" + i);
-                    Thread.sleep(1000);
-                    product = productList.get(i - 1);
-                    actions.click(product).perform();
-                }
-
-                String productCode;
-                String productPrice;
-                String productStockStatus;
-                String productRemoteStockStatus;
-
-                boolean isContainsCollection = false;
-                try {
-                    isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
-                } catch (Exception e) {
-                    System.out.println("Ürün başlığı okunamadı" + e.getMessage() + "page:" + k);
-                }
-                if (isContainsCollection) {
-                    List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//div[@class='mt-3 text-center thumb-item-box thumb-border quick-view-box lh-sm']"));
-
-                    for (int j = 1; j <= subProductList.size(); j++) {
-                        // Listeyi yeniden al
-                        List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
-
-                        if (j == 1) {
-                            actions.scrollByAmount(0, 600).perform();
-                        }
-
-                        WebElement subProduct = subProductListInLoop.get(j - 1);
-                        try {
-                            subProduct.click();
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage() + " page: " + k + " item: " + i + " element: " + j );
-                            actions.click(subProduct).perform();
-                        }
-
-                        if (j % 5 == 0) {
-                            actions.scrollByAmount(0, 425).perform();
-                        }
-
-                        try {
-                            productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
-                            productPrice = driver.findElement(By.id("price_block")).getText();
-                            productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
-                            productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
-                            String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
-                            allProductsInformation.add(productInfo);
-                            driver.navigate().back();
-                        } catch (Exception ex) {
-                            System.out.println(ex.getMessage() + "page:" + k + "item:" + i + "element:" + j );
-                            actions.sendKeys(Keys.TAB)
-                                    .sendKeys(Keys.ENTER)
-                                    .perform();
-                        }
-                    }
-                } else {
-                    try {
-                        productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
-                        productPrice = driver.findElement(By.id("price_block")).getText();
-                        productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
-                        productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
-                        String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
-                        allProductsInformation.add(productInfo);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage() + "page:" + k + "item:" + i);
-                    }
-                }
-                driver.navigate().back();
-            }
-
-            // Son sayfada değilsek, bir sonraki sayfaya geç
-            if (k == pageSize){
-                break;
-            }
-            if (k < pageSize-3) {
-                WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[16]//a"));
-                try {
-                    nextPageBtn.click();
-                } catch (Exception e) {
-                    actions.click(nextPageBtn).perform();
-                }
-                Thread.sleep(2000); // Sayfanın yüklenmesi için bekleme süresi
-            } else {
-                WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[12]//a"));
-                try {
-                    nextPageBtn.click();
-                } catch (Exception e) {
-                    actions.click(nextPageBtn).perform();
-                }
-                Thread.sleep(1000); // Sayfanın yüklenmesi için bekleme süresi
-            }
-        }
-    }
-*/
-    @Test
-    public void seating() throws InterruptedException {
-        Actions actions = new Actions(driver);
-        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seat/'])[1]"));
-        actions.moveToElement(seatingLink).perform();
-        Thread.sleep(1000);
-
-        actions.scrollByAmount(0, 150).perform();
-
-        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
-        browseAllSeatingLink.click();
 
         actions.scrollByAmount(0, 250).perform();
 
@@ -678,7 +551,162 @@ public class GetInformations extends TestBase {
             }
         }
     }
-/*
+
+    @Test
+    public void seating() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        WebElement seatingLink = driver.findElement(By.xpath("(//a[@href='/seat/'])[1]"));
+        actions.moveToElement(seatingLink).perform();
+        Thread.sleep(1000);
+
+        actions.scrollByAmount(0, 150).perform();
+
+        WebElement browseAllSeatingLink = driver.findElement(By.xpath("(//li[@class='main-menu-li categoryImageItem '])[5]//li[@class='menu-item-li']"));
+        browseAllSeatingLink.click();
+
+        actions.scrollByAmount(0, 250).perform();
+
+        // Pagination bilgisi
+        String lastPageCountAsString = driver.findElement(By.xpath("(//li[@class='page-item'])[7]")).getText();
+        int pageSize = Integer.parseInt(lastPageCountAsString);
+
+        for (int k = 1; k <= pageSize; k++) {
+            // Mevcut sayfadaki ürünleri bul
+            List<WebElement> productListFirst = driver.findElements(By.xpath("//div[@class='col position-relative']"));
+            System.out.println("İlk alınan ürün listesi sayısı : " +  productListFirst.size());
+
+            if (k >= 2) {
+                actions.scrollByAmount(0, 250).perform();
+            }
+
+            for (int i = 1; i <= productListFirst.size(); i++) {
+
+                WebElement product;
+                try {
+                    product = productListFirst.get(i - 1);
+                    product.click();
+                    if (i %3 == 0){
+                        actions.scrollByAmount(0, 530).perform();
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getLocalizedMessage() + " i: " + i);
+                    Thread.sleep(1000);
+                    try {
+                        List<WebElement> productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
+                        System.out.println("İkinci alınan ürün listesi sayısı : " +  productList.size());
+                        product = productList.get(i - 1);
+                        actions.click(product).perform();
+                        if (i %3 == 0){
+                            actions.scrollByAmount(0, 530).perform();
+                        }
+                    } catch (Exception ex) {
+                        Thread.sleep(1000);
+                        List<WebElement> productListLast = driver.findElements(By.xpath("//div[@class='col position-relative']"));
+                        System.out.println("\u001B[34mÜçüncü alınan ürün listesi sayısı : " + productListLast.size() + "\u001B[0m");
+                        product = productListLast.get(i - 1);
+                        actions.click(product).perform();
+                        if (i %3 == 0){
+                            actions.scrollByAmount(0, 530).perform();
+                        }
+                    }
+                }
+
+                String productCode;
+                String productPrice;
+                String productStockStatus;
+                String productRemoteStockStatus;
+
+                boolean isContainsCollection = false;
+                try {
+                    isContainsCollection = driver.findElement(By.xpath("//li[@class='breadcrumb-item active']")).getText().contains("Collection");
+                } catch (Exception e) {
+                    System.out.println("Ürün başlığı okunamadı " + e.getMessage() + " page: " + k);
+                }
+                if (isContainsCollection) {
+                    List<WebElement> subProductList = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
+
+                    for (int j = 1; j <= subProductList.size(); j++) {
+                        // Listeyi yeniden al
+                        //List<WebElement> subProductListInLoop = driver.findElements(By.xpath("//div[@class='row mt-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5']//a"));
+
+                        if (j == 1) {
+                            actions.scrollByAmount(0, 400).perform(); //todo 600
+                        }
+
+                        WebElement subProduct = subProductList.get(j - 1);
+                        try {
+                            subProduct.click();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage() + " page: " + k + " item: " + i + " element: " + j );
+                            try {
+                                if (j == 1) {
+                                    actions.scrollByAmount(0, 100).perform();
+                                }
+                                actions.click(subProduct).perform();
+                            } catch (Exception ex) {
+                                System.out.println("Alt ürün açılamadı");
+                            }
+                        }
+
+                        if (j % 5 == 0) {
+                            actions.scrollByAmount(0, 425).perform(); //todo 440 olmalı sanki
+                        }
+
+                        try {
+                            productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                            productPrice = driver.findElement(By.id("price_block")).getText();
+                            productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                            productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                            String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                            allProductsInformation.add(productInfo);
+                            driver.navigate().back();
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage() + " page: " + k + " item: " + i + " element: " + j );
+                            actions.sendKeys(Keys.TAB)
+                                    .sendKeys(Keys.ENTER)
+                                    .perform();
+                        }
+                    }
+                } else {
+                    try {
+                        productCode = driver.findElement(By.xpath("//span[@id='bgitem_name']")).getText();
+                        productPrice = driver.findElement(By.id("price_block")).getText();
+                        productStockStatus = driver.findElement(By.id("AvailabiltySpan")).getText();
+                        productRemoteStockStatus = driver.findElement(By.xpath("(//span//b)[4]")).getText();
+                        String[] productInfo = {productCode, productPrice, productStockStatus, productRemoteStockStatus};
+                        allProductsInformation.add(productInfo);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + " page: " + k + " item: " + i);
+                    }
+                }
+                driver.navigate().back();
+            }
+
+            // Son sayfada değilsek, bir sonraki sayfaya geç
+            if (k == pageSize){
+                break;
+            }
+            if (k < pageSize-3) {
+                WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[16]//a"));
+                try {
+                    nextPageBtn.click();
+                } catch (Exception e) {
+                    Thread.sleep(1000);
+                    actions.click(nextPageBtn).perform();
+                }
+                Thread.sleep(2000); // Sayfanın yüklenmesi için bekleme süresi
+            } else {
+                WebElement nextPageBtn = driver.findElement(By.xpath("(//li[@class='page-item'])[12]//a"));
+                try {
+                    nextPageBtn.click();
+                } catch (Exception e) {
+                    actions.click(nextPageBtn).perform();
+                }
+                Thread.sleep(1000); // Sayfanın yüklenmesi için bekleme süresi
+            }
+        }
+    }
+
     @Test
     public void occasional() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -833,21 +861,27 @@ public class GetInformations extends TestBase {
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
         for (int i = 1; i <= productList.size(); i++) {
-            if (i == 1) {
-                // İlk ürün için kaydırma işlemi atlanır
-            } else if (i % 3 == 0) {
-                actions.scrollByAmount(0, 570).perform();
-            }
+
             //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
                 product.click();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage() + " i:" + i);
+                System.out.println(e.getLocalizedMessage() + " i: " + i);
                 Thread.sleep(1000);
                 product = productList.get(i - 1);
                 actions.click(product).perform();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             }
 
             String productCode;
@@ -934,21 +968,27 @@ public class GetInformations extends TestBase {
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
         for (int i = 1; i<= productList.size(); i++) {
-            if (i == 1) {
-                // İlk ürün için kaydırma işlemi atlanır
-            } else if (i % 3 == 0) {
-                actions.scrollByAmount(0, 570).perform();
-            }
+
             //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
                 product.click();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage() + "i:" + i);
+                System.out.println(e.getLocalizedMessage() + " i: " + i);
                 Thread.sleep(1000);
                 product = productList.get(i - 1);
                 actions.click(product).perform();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             }
 
             String productCode;
@@ -1034,21 +1074,27 @@ public class GetInformations extends TestBase {
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
         for (int i = 1; i <= productList.size(); i++) {
-            if (i == 1) {
-                // İlk ürün için kaydırma işlemi atlanır
-            } else if (i % 3 == 0) {
-                actions.scrollByAmount(0, 570).perform();
-            }
+
             //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
                 product.click();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage() + "i:" + i);
+                System.out.println(e.getLocalizedMessage() + " i: " + i);
                 Thread.sleep(1000);
                 product = productList.get(i - 1);
                 actions.click(product).perform();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             }
 
             String productCode;
@@ -1134,21 +1180,27 @@ public class GetInformations extends TestBase {
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
         for (int i = 1; i <= productList.size(); i++) {
-            if (i == 1) {
-                // İlk ürün için kaydırma işlemi atlanır
-            } else if (i % 3 == 0) {
-                actions.scrollByAmount(0, 570).perform();
-            }
+
             //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
                 product.click();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage() + "i:" + i);
+                System.out.println(e.getLocalizedMessage() + " i: " + i);
                 Thread.sleep(1000);
                 product = productList.get(i - 1);
                 actions.click(product).perform();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             }
 
             String productCode;
@@ -1342,21 +1394,27 @@ public class GetInformations extends TestBase {
         List<WebElement> productList = driver.findElements(By.xpath("//a[@class='flex-fill']"));
 
         for (int i = 1; i <= productList.size(); i++) {
-            if (i == 1) {
-                // İlk ürün için kaydırma işlemi atlanır
-            } else if (i % 3 == 0) {
-                actions.scrollByAmount(0, 570).perform();
-            }
+
             //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
                 product.click();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             } catch (Exception e) {
-                System.out.println(e.getMessage() + "i:" + i);
+                System.out.println(e.getLocalizedMessage() + " i: " + i);
                 Thread.sleep(1000);
                 product = productList.get(i - 1);
                 actions.click(product).perform();
+                if (i %3 == 0){
+                    actions.scrollByAmount(0, 530).perform();
+                } else if (i == 34) {
+                    actions.scrollByAmount(0, 200).perform();
+                }
             }
 
             String productCode;
@@ -1423,7 +1481,7 @@ public class GetInformations extends TestBase {
             driver.navigate().back();
         }
     }
-*/
+
     @AfterClass
     public static void writeDataToExcel() throws IOException {
         Workbook workbook = new XSSFWorkbook();
