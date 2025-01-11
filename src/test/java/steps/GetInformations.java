@@ -16,13 +16,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import utillities.TestBase;
+import utilities.TestBase;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GetInformations extends TestBase {
@@ -644,7 +643,9 @@ public class GetInformations extends TestBase {
                                 }
                                 actions.click(subProduct).perform();
                             } catch (Exception ex) {
-                                System.out.println("Alt ürün açılamadı");
+                                driver.navigate().refresh();
+                                Thread.sleep(2000);
+                                actions.click(subProduct).perform();
                             }
                         }
 
@@ -862,7 +863,7 @@ public class GetInformations extends TestBase {
 
         for (int i = 1; i <= productList.size(); i++) {
 
-            //productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
+            productList = driver.findElements(By.xpath("//div[@class='col position-relative']"));
             WebElement product;
             try {
                 product = productList.get(i - 1);
