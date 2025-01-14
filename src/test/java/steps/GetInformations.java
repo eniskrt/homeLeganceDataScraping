@@ -1521,9 +1521,8 @@ public class GetInformations extends TestBase {
 
         // Excel dosyasını kaydet
         String currentDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
-        LocalTime localTime = LocalTime.now();
-        //String currentHour = localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        String fileName = "ProductPrices_" + currentDate + ".xlsx";
+        String currentTime = new SimpleDateFormat("HHmm").format(new Date()); // Saati HHmm formatında al
+        String fileName = "HomelegancePriceList_" + currentDate + "_" + currentTime + ".xlsx";
         try (FileOutputStream outputStream = new FileOutputStream(fileName)) {
             workbook.write(outputStream);
         }
